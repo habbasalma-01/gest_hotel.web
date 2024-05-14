@@ -1,0 +1,94 @@
+﻿@model int
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réserver une chambre</title>
+</head>
+<body>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="book_room">
+                    <h1>Book this room Online</h1>
+                    <form class="book_now" method="post">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span>Arrival</span>
+                                <img class="date_cua" src="~/Images/date.png">
+                                <input id="arrivalDate" class="online_book" placeholder="dd/mm/yyyy" type="date" name="dateArrivee">
+                            </div>
+                            <div class="col-md-12">
+                                <span>Departure</span>
+                                <img class="date_cua" src="~/Images/date.png">
+                                <input id="departureDate" class="online_book" placeholder="dd/mm/yyyy" type="date" name="dateDepart">
+                            </div>
+                            <div class="col-md-12">
+                                <button id="checkAvailability" class="book_btn" type="button">Check Availability</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="book_room">
+                    <h1 id="availabilityMessage"></h1>
+                    <h3 style="color:red;" id="totalAmount"></h3>
+                    <form action="@Url.Action("bank", "Reservation")" method="post" style="display: none;" id="confirmForm">
+                        <input type="hidden" name="chambreId" value="@ViewBag.ChambreId" />
+                        <input type="hidden" name="dateArrivee" id="dateArrivee" value="@ViewBag.DateArrivee" />
+                        <input type="hidden" name="dateDepart" id="dateDepart" value="@ViewBag.DateDepart" />
+                        <input type="hidden" name="montantTotal" id="montantTotal" value="@ViewBag.MontantTotal" />
+                        <button type="submit" class="btn btn-success" id="confirmButton">Confirmer la réservation</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('checkAvailability').addEventListener('click', function () {
+            var arrivalDate = document.getElementById('arrivalDate').value;
+            var departureDate = document.getElementById('departureDate').value;
+            var chambreId = @ViewBag.ChambreId;
+
+            if (arrivalDate && departureDate) {
+                fetch('@Url.Action("CheckAvailability", "Reservation")?chambreId=' + chambreId + '&arrivalDate=' + arrivalDate + '&departureDate=' + departureDate)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.disponibilite) {
+                            document.getElementById('availabilityMessage').textContent = 'Room available for the selected dates';
+                            document.getElementById('totalAmount').textContent = 'Total Amount: ' + data.montantTotal + ' DH';
+                            document.getElementById('dateArrivee').value = arrivalDate;
+                            document.getElementById('dateDepart').value = departureDate;
+                            document.querySelector('.book_room form').style.display = 'block';
+                            document.getElementById('confirmForm').style.display = 'block';
+                        } else {
+                            document.getElementById('availabilityMessage').textContent = 'Room not available for the selected dates';
+                            document.getElementById('totalAmount').textContent = '';
+                            document.querySelector('.book_room form').style.display = 'none';
+                            document.getElementById('confirmForm').style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert('Please select arrival and departure dates.');
+            }
+        });
+    </script>
+
+</body>
+</html>

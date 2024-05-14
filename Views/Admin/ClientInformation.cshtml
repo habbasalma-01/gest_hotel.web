@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Clients Information";
+}
+@{
+    Layout = null; // Pour ignorer le layout principal
+}
+
+@{
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajouter un administrateur</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            background-color: #f3f3f3;
+        }
+
+        .containerr {
+            margin: 10px auto;
+            margin-left20 % width: 100%;
+            height: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond noir transparent */
+            color: white; /* Couleur du texte */
+        }
+
+        h1 {
+            color: red; /* Couleur du titre */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            padding-left: 10%;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid white; /* Bordure blanche */
+            text-align: center;
+        }
+
+        th {
+            background-color: white; /* Fond blanc pour les en-têtes */
+            color: black; /* Couleur du texte des en-têtes */
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: white; /* Fond blanc pour les lignes impaires */
+            color: black; /* Couleur du texte des en-têtes */
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f1f1f1; /* Fond gris clair pour les lignes paires */
+            color: black; /* Couleur du texte des en-têtes */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="containerr">
+        <h1>Clients Information</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model)
+                {
+                    <tr>
+                        <td>@client.Id</td>
+                        <td>@client.Nom</td>
+                        <td>@client.Prenom</td>
+                        <td>@client.Email</td>
+                        <td>@client.Telephone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

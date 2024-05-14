@@ -1,0 +1,157 @@
+﻿@using Microsoft.AspNetCore.Hosting
+@using System.IO
+
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnvironment
+@{
+    ViewData["Title"] = "Room Hotel";
+}
+@{
+    Layout = null; // Pour ignorer le layout principal
+}
+
+
+
+@{
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajouter un administrateur</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden; /* Empêcher le défilement horizontal */
+            background-color: #f3f3f3; /* Couleur de fond */
+        }
+
+        .form {
+            margin-top: 50px;
+            margin-left: 720px;
+            border-radius: 20px;
+        }
+
+        .container {
+            overflow-x: auto; /* Défilement horizontal activé */
+            white-space: nowrap; /* Empêcher le retour à la ligne */
+            text-align: center; /* Centrer le contenu */
+        }
+
+        .add-button {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .chambre-card {
+            display: inline-block; /* Afficher les cartes en ligne */
+            width: 50%; /* Largeur fixe pour chaque carte */
+            height: 20%; /* Hauteur fixe pour chaque carte */
+            margin-right: 20px; /* Marge à droite pour séparer les cartes */
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: rgba(255,255,255,0.9);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Empêcher le contenu de déborder */
+        }
+
+        .chambre-content {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .chambre-image {
+            width: 120px; /* Largeur de l'image */
+            height: 120px; /* Hauteur de l'image */
+            margin-right: 20px;
+        }
+
+        .chambre-info {
+            flex: 1;
+        }
+
+        .chambre-actions {
+            padding-right: 10px;
+            line-height: 2; /* Espacement vertical entre les liens */
+        }
+
+        /* Style de la barre de défilement */
+        ::-webkit-scrollbar {
+            width: 10px; /* Largeur de la barre de défilement */
+        }
+
+        /* Style de la partie draggable de la barre de défilement */
+        ::-webkit-scrollbar-thumb {
+            background-color: black; /* Couleur de la barre de défilement */
+            border-radius: 10px; /* Bord arrondi */
+        }
+
+        /* Style de la partie track de la barre de défilement */
+        ::-webkit-scrollbar-track {
+            background-color: transparent; /* Couleur de fond de la barre de défilement */
+        }
+
+        /* Style pour centrer le titre h1 */
+        .center {
+            text-align: center;
+            color: white;
+            margin-top: 50px; /* Ajouter de l'espace en haut */
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="h1 fw-bold mb-0 center">Hotel Rooms</h1>
+    <div class="add-button">
+        <a href="@Url.Action("AddRoom", "Rooms")" class="btn btn-primary">Ajouter une chambre d'hôtel</a>
+    </div>
+    <div class="container">
+        <!-- Bouton "Ajouter une chambre d'hôtel" -->
+        <!-- Conteneur pour les chambres avec défilement horizontal -->
+        <div class="chambres-container">
+            @foreach (var chambre in Model)
+            {
+                <div class="chambre-card">
+                    <!-- Contenu de chaque chambre -->
+                    <div class="chambre-content">
+                        @{
+                            var imagePathPng = webHostEnvironment.WebRootPath + "/Images/room/" + chambre.Id + ".png";
+                            var imagePathJpeg = webHostEnvironment.WebRootPath + "/Images/room/" + chambre.Id + ".jpeg";
+                            var imagePathJpg = webHostEnvironment.WebRootPath + "/Images/room/" + chambre.Id + ".jpg";
+                        }
+                        @if (System.IO.File.Exists(imagePathPng) || System.IO.File.Exists(imagePathJpeg) || System.IO.File.Exists(imagePathJpg))
+                        {
+                            <img src="~/Images/room/@(chambre.Id).@(System.IO.File.Exists(imagePathPng) ? "png" : (System.IO.File.Exists(imagePathJpeg) ? "jpeg" : "jpg"))" alt="@chambre.TypeChambre" class="chambre-image">
+                        }
+                        <!-- Informations de la chambre à côté de la photo -->
+                        <div class="chambre-info">
+                            <div>Type: @chambre.TypeChambre</div>
+                            <div>Description: @chambre.Description</div>
+                            <div>Prix par nuit: @chambre.PrixParNuit</div>
+                            <div>Disponibilité: @(chambre.Disponibilite)</div>
+                        </div>
+                    </div>
+                    <!-- Boutons de modifier et supprimer à droite -->
+                    <div class="chambre-actions">
+                        <button class="btn btn-outline-info" style="padding-right : 5%;"><a href="@Url.Action("EditRoom", "Rooms", new { id = chambre.Id })">Modifier</a></button>
+                        <button id="br" class="btn btn-danger"> <a href="@Url.Action("DeleteRoom", "Rooms", new { id = chambre.Id })">Supprimer</a></button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+</body>
+</html>

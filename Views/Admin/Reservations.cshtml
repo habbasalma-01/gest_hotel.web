@@ -1,0 +1,151 @@
+﻿@model List<gest_hotel.web.Models.Entities.Reservation>
+
+@{
+    ViewData["Title"] = "Reservations";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+<style>
+    /* Ajout du style pour la page des réservations */
+
+    /* Style du cadre */
+    .frame {
+        background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond noir transparent */
+        padding: 20px;
+        border-radius: 20px;
+        margin-top: 30px;
+    }
+
+    /* Style de la table */
+    .table-container {
+        overflow-x: auto;
+        max-height: 500px; /* Définir la hauteur maximale */
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        border-collapse: collapse;
+        border-radius: 20px;
+    }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            color: white;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    .table-sm th,
+    .table-sm td {
+        padding: 0.3rem;
+    }
+
+    .table-bordered {
+        border: 0;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            border-bottom-width: 2px;
+        }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            color: #fff;
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        .btn-danger:focus,
+        .btn-danger.focus {
+            color: #fff;
+            background-color: #c82333;
+            border-color: #bd2130;
+            box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
+        }
+
+        .btn-danger.disabled,
+        .btn-danger:disabled {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:not(:disabled):not(.disabled):active,
+        .btn-danger:not(:disabled):not(.disabled).active,
+        .show > .btn-danger.dropdown-toggle {
+            color: #fff;
+            background-color: #bd2130;
+            border-color: #b21f2d;
+        }
+
+            .btn-danger:not(:disabled):not(.disabled):active:focus,
+            .btn-danger:not(:disabled):not(.disabled).active:focus,
+            .show > .btn-danger.dropdown-toggle:focus {
+                box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
+            }
+</style>
+
+<div class="frame">
+    <h1 class="h1 fw-bold mb-0 center" style="color: red;">Reservations</h1>
+
+    <div class="table-container">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Email du Client</th>
+                    <th>Chambre</th>
+                    <th>Date d'Arrivée</th>
+                    <th>Date de Départ</th>
+                    <th>Montant Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Model)
+                {
+                    <tr>
+                        <td>@reservation.Client.Email</td>
+                        <td>@reservation.ChambreId</td>
+                        <td>@reservation.DateArrivee.ToShortDateString()</td>
+                        <td>@reservation.DateDepart.ToShortDateString()</td>
+                        <td>@reservation.MontantTotal</td>
+                        <td>
+                            <form method="post" action="@Url.Action("CancelReservation", "Admin", new { id = reservation.Id })">
+                                <button type="submit" class="btn btn-danger">Annuler la réservation</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿@model gest_hotel.web.Models.Entities.Chambre
+
+@{
+    ViewData["Title"] = "Add Room";
+}
+
+@{
+    Layout = null; // Pour ignorer le layout principal
+}
+
+
+
+@{
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+  
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .form {
+            margin-top: 50px;
+            margin-left: 720px;
+            border-radius: 20px;
+        }
+
+       
+    </style>
+</head>
+<body>
+ 
+
+    <div class="form">
+        <form asp-action="AddRoom" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="TypeChambre" class="control-label">Type de chambre:</label>
+                <input asp-for="TypeChambre" class="form-control" />
+                <span asp-validation-for="TypeChambre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Description:</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrixParNuit" class="control-label">Prix par nuit:</label>
+                <input asp-for="PrixParNuit" class="form-control" />
+                <span asp-validation-for="PrixParNuit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Disponibilite" class="control-label">Disponibilité:</label>
+                <select asp-for="Disponibilite" class="form-control">
+                    <option value="true">Disponible</option>
+                    <option value="false">Non disponible</option>
+                </select>
+                <span asp-validation-for="Disponibilite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Photo de la chambre:</label>
+                <input type="file" name="RoomPhoto" class="form-control" />
+            </div>
+            <!-- Ajoutez ici d'autres champs de formulaire si nécessaire -->
+
+            <button type="submit" class="btn btn-primary">Ajouter la chambre</button>
+        </form>
+    </div>
+
+  
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js" integrity="sha512-yl1bZN5KqtXcZTpJYVovEF5N0FX6+1DqO/ujDsLYW4z/kiV47Xq1cy/QBvKAxUeA7ZJTdzBBwuiII2noC/Oxtw==" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

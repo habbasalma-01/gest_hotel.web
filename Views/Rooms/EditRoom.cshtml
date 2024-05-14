@@ -1,0 +1,86 @@
+﻿@model gest_hotel.web.Models.Entities.Chambre
+
+@{
+    ViewData["Title"] = "Modifier une chambre";
+}
+
+@{
+    Layout = null; // Pour ignorer le layout principal
+}
+
+@{
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .form {
+            margin-top: 50px;
+            margin-left: 720px;
+            border-radius: 20px;
+        }
+
+        .white-background {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="white-background">
+        <h1>Modifier une chambre</h1>
+        <form asp-action="EditRoom" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="PrixParNuit"></label>
+                <input asp-for="PrixParNuit" class="form-control" />
+                <span asp-validation-for="PrixParNuit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Disponibilite"></label>
+                <select asp-for="Disponibilite" class="form-control">
+                    <option value="true" selected="@(Model.Disponibilite)">Disponible</option>
+                    <option value="false" selected="@(Model.Disponibilite ? string.Empty : "selected")">Non disponible</option>
+                </select>
+                <span asp-validation-for="Disponibilite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Photo actuelle de la chambre</label>
+                @if (Model.Id != 0)
+                {
+                    <img src="~/Images/room/@(Model.Id).jpeg" alt="Photo de la chambre" style="max-width: 200px;" />
+                }
+                else
+                {
+                    <span>Aucune photo</span>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <a asp-action="RoomHotel" asp-controller="Admin" class="btn btn-secondary">Annuler</a>
+        </form>
+    </div>
+
+</body>
+</html>

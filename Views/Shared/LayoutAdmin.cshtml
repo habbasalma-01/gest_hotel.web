@@ -1,0 +1,457 @@
+﻿@{
+    Layout = null; // Pour ignorer le layout principal
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hotel Sophistique</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/Images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            flex-shrink: 0;
+        }
+
+        .logo {
+            width: 100px;
+            heigth: 60px;
+            padding-top: 8px;
+        }
+
+        .semes {
+            border-radius: 20px;
+            width: 65px;
+            height: 30px;
+        }
+
+        .side_bar {
+            position: fixed;
+            top: 0;
+            left: -400px; /* Masqué par défaut */
+            height: 100%;
+            width: 400px;
+            background-color: RGBA( 0, 0, 0, 0.7 );
+            padding: 20px 15px;
+            transition: left 0.3s ease; /* Ajout de la transition */
+        }
+
+            .side_bar.show {
+                left: 0;
+            }
+
+            .side_bar .logo {
+                color: rgba(255, 0, 0,0.7);
+                display: flex;
+                height: 40px;
+                width: 100%;
+                align-items: center;
+            }
+
+                .side_bar .logo i {
+                    font-size: 40px;
+                    margin-right: 5px;
+                }
+
+                .side_bar .logo .logo_name {
+                    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                    font-size: 20px;
+                }
+
+        .logo_items #btn_menu {
+            position: absolute;
+            left: 88%;
+            top: 28px;
+            font-size: 23px;
+        }
+
+        .side_bar ul {
+            margin-top: 30px;
+        }
+
+            .side_bar ul li {
+                position: relative;
+                list-style: none;
+                height: 50px;
+                width: 100%;
+                margin: 0 5px;
+                line-height: 50px;
+            }
+
+                .side_bar ul li a {
+                    text-decoration: none;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    font-size: 20px;
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                }
+
+                    .side_bar ul li a:hover {
+                        background-color: whitesmoke;
+                        color: rgba(255, 0, 0,0.7);
+                    }
+
+                    .side_bar ul li a.active {
+                        background-color: whitesmoke;
+                        color: rgba(255, 0, 0,0.7);
+                    }
+
+                        .side_bar ul li a.active:hover {
+                            background-color: whitesmoke;
+                            color: rgba(255, 0, 0,0.7);
+                        }
+
+                    .side_bar ul li a i {
+                        height: 50px;
+                        min-width: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                    }
+
+                .side_bar ul li input {
+                    height: 40px;
+                    width: 80%;
+                    position: absolute;
+                    border: none;
+                    border-radius: 10px;
+                    padding-left: 40px;
+                    background-color: white;
+                    color: black;
+                    font-size: 15px;
+                    outline: none;
+                }
+
+                .side_bar ul li i.bx-search {
+                    position: absolute;
+                    z-index: 2;
+                    min-width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 20px;
+                    text-align: center;
+                }
+
+        .profile_content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(255, 0, 0,0.7);
+            color: whitesmoke;
+            width: 100%;
+            height: 85px;
+            padding: 6px 14px;
+        }
+
+            .profile_content .profile {
+                display: flex;
+                align-items: center;
+            }
+
+                .profile_content .profile img {
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 8px;
+                }
+
+        .name_job {
+            margin-left: 6px;
+        }
+
+            .name_job .name {
+                font-size: 20px;
+            }
+
+            .name_job .name_job {
+                font-size: 16px;
+            }
+
+        .profile_content #btn_out {
+            position: absolute;
+            left: 85%;
+            bottom: 10px;
+            font-size: 23px;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .side_bar ul li .menu_items {
+            position: absolute;
+            left: 122px;
+            top: 0;
+            transform: translateY(-50%);
+            height: 35px;
+            width: 122px;
+            background-color: white;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.699);
+            border-radius: 8px;
+            line-height: 35px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .side_bar ul li:hover .menu_items {
+            opacity: 1;
+        }
+
+        .toggle-sidebar-btn {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background-color: rgba(255, 0, 0,0.7);
+            color: black;
+            border: none;
+            border-top-left-radius: 0%;
+            border-top-right-radius: 50%;
+            border-bottom-left-radius: 0%;
+            border-bottom-right-radius: 50%;
+            padding: 10px 15px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 9999; /* Assure que le bouton reste au-dessus de tout le reste */
+            width: 17px; /* Largeur */
+            height: 80px;
+        }
+
+        .submenu {
+            display: none;
+        }
+
+        .settings-menu:hover .submenu {
+            display: block;
+            padding-left: 20%;
+            padding-top: 2%;
+            margin-top: -5px; /* Ajustez la marge supérieure */
+            padding-top: 5px;
+        }
+    </style>
+</head>
+<body class="main-layout">
+    <!-- loader  -->
+    <!-- header -->
+    <header>
+        <!-- header inner -->
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <a asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/Images/radi.png" alt="#" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarsExample04">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="about">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Account" asp-action="gallery">Rooms</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="contact">Contact Us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">LOGIN</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="banner_main">
+        <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="first-slide" src="~/Images/banner1.jpg" alt="First slide">
+                    <div class="container">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="second-slide" src="~/Images/banner2.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="third-slide" src="~/Images/banner3.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="booking_ocline">
+            <div class="container">
+                <div class="row">
+                    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-white text-dark py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Hotel Radisson. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <div class="side_bar">
+        <div class="logo_items">
+            <div class="logo">
+                <i class='bx bxl-netlify'></i>
+                <div class="logo_name">
+                    Hotel Management
+                </div>
+            </div>
+            <i class='bx bx-menu' id="btn_menu"></i>
+        </div>
+        <br><hr color="black">
+        <ul>
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search">
+                <span class="menu_items">Search</span>
+            </li>
+            <li>
+                <a href="@Url.Action("Dashboard", "Admin")">
+                    <i class='bx bxs-dashboard'></i>
+                    <span>Dashboard </span>
+                </a>
+                <span class="menu_items">Dashboard</span>
+            </li>
+            <li>
+                <a href="@Url.Action("AddAdmin", "Admin")">
+                    <!-- Lien vers le formulaire pour ajouter un admin -->
+                    <i class='bx bxs-user'></i>
+                    <span>Ajouter un administrateur</span>
+                </a>
+                <span class="menu_items">Add Admin</span>
+            </li>
+            <li>
+                <a href="@Url.Action("ClientInformation", "Admin")">
+                    <i class='bx bxs-info-circle'></i>
+                    <span>Clients Information</span>
+                </a>
+                <span class="menu_items">Clients</span>
+            </li>
+            <li>
+                <a href="@Url.Action("RoomHotel", "Admin")">
+                    <i class='bx bxs-hotel'></i>
+                    <span>Hotel Room</span>
+                </a>
+                <span class="menu_items">Hotel Room</span>
+            </li>
+            <li>
+                <a href="@Url.Action("Reservations", "Admin")">
+                    <i class='bx bxs-hotel'></i>
+                    <span>Reservations</span>
+                </a>
+                <span class="menu_items">Reservations</span>
+            </li>
+            <li class="settings-menu">
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span>Settings</span>
+                </a>
+                <span class="menu_items">Settings</span>
+                <ul class="submenu">
+                    <li>
+                        <a href="@Url.Action("ViewProfile", "Admin")">
+                            <i class='bx bxs-user-circle'></i>Profil
+                        </a>
+                    </li>
+                    <li><a href="@Url.Action("Logout", "Account")"><i class='bx bx-log-out'></i> Logout</a></i></a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="profile_content">
+            <div class="profile">
+                <i class="fas fa-hotel fa-2x me-3" style="color: white;"></i>
+                <div class="name_job">
+                    <div class="h1 fw-bold mb-0">Radisson</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="toggle-sidebar-btn" id="toggleSidebar">≡</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggleButton = document.getElementById('toggleSidebar');
+            var sidebar = document.querySelector('.side_bar');
+            toggleButton.addEventListener('click', function () {
+                sidebar.classList.toggle('show');
+                toggleButton.classList.toggle('hide'); // Ajout de la classe hide pour masquer le bouton lorsque le sidebar est affiché
+            });
+        });
+    </script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿@model gest_hotel.web.Models.Entities.Admin
+@{
+    Layout = null; // Pour ignorer le layout principal
+}
+
+
+@{
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Admin</title>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            font-family: Arial, sans-serif; /* Changement de la police */
+            background-color: #f3f3f3; /* Couleur de fond */
+        }
+
+        .contai {
+            margin-top: 0px;
+            margin-left: 20px;
+            max-width: 800px;
+            padding-bottom: 20%;
+            padding-left: 10%;
+        }
+
+        .profile {
+            background-color: rgba(0, 0, 0, 0.5); /* Fond noir transparent */
+            padding: 20px;
+            border-radius: 10px;
+            color: white; /* Couleur du texte */
+            margin-bottom: 20px;
+        }
+
+            .profile p {
+                background-color: white; /* Fond blanc pour les paragraphes */
+                padding: 10px;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                color: black; /* Couleur du texte */
+            }
+
+        h2 {
+            color: red;
+            font-size: 1.2 em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contai">
+        <div class="profile">
+            <h2>Admin Profil</h2>
+            <p><strong>Fisrt Name :</strong> @Model.firstname</p>
+            <p><strong>Last Name :</strong> @Model.lastname</p>
+            <p><strong>Email :</strong> @Model.Email</p>
+        </div>
+    </div>
+
+</body>
+</html>

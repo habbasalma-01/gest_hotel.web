@@ -1,0 +1,17 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/home.jpg'); /* Chemin vers votre image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
